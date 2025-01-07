@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Random Factions (Continued)</name>
+  <packageId>Mlie.RandomFactions</packageId>
+  <author>Dr. Plantabyte</author>
+  <url>https://github.com/emipa606/RandomFactions</url>
+  <supportedVersions>
+    <li>1.4</li>
+    <li>1.5</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>UnlimitedHugs.HugsLib</packageId>
+      <displayName>HugsLib</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/818773962</steamWorkshopUrl>
+      <downloadUrl>https://github.com/UnlimitedHugs/RimworldHugsLib/releases/latest</downloadUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>UnlimitedHugs.HugsLib</li>
+  </loadAfter>
+  <description>[img]https://i.imgur.com/buuPQel.png[/img]
+Update of Dr. Plantabytes mod https://steamcommunity.com/sharedfiles/filedetails/?id=2896649114
+
+- Added translation support
+
+[img]https://i.imgur.com/pufA0kM.png[/img]
+
+[table]
+    [tr][td][url=https://dsc.gg/mlie][img]https://i.imgur.com/zdzzBrc.png[/img][/url][/td] [td][url=https://github.com/emipa606/RandomFactions][img]https://i.imgur.com/kTkpTOE.png[/img][/url][/td]
+    [/tr]
+    [tr]
+        [td][img]https://i.imgur.com/XLUGyo4.png[/img][/td]
+        [td][img]https://i.imgur.com/Be8E2qJ.png[/img][/td]
+    [/tr]
+[/table]
+	
+[img]https://i.imgur.com/Z4GOv8H.png[/img]
+[h1]Random Factions Rimworld Mod[/h1]
+Randomly add factions instead of choosing them manually. Every world is unique!
+
+[img]https://steamuserimages-a.akamaihd.net/ugc/2006946285962321270/92F54F264967AD910971D20050C085D5E716192E/?imw=5000&amp;amp;imh=5000&amp;amp;ima=fit&amp;amp;impolicy=Letterbox&amp;amp;imcolor=#000000&amp;amp;letterbox=false[/img]
+
+[h2]Why Random Factions?[/h2]
+If you like installing mods that add new factions and xenotypes, you quickly accumulate a large number of factions. Adding them all to each world is tedious, and you don't really need 3 flavors (pirate, rough, &amp;amp; civil) of every single new culture you added to the game.
+
+Wouldn't it be much more fun if each world had a different and unique combination of factions?
+
+Of course that's more fun! And now you can! Just fill your faction list with a dozen random factions and presto! Every world is unique.
+
+This mod pairs well with the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2905939119]Planet Setting Randomizer mod[/url].
+
+[h2]Installation and Requirements[/h2]
+This mod depends on the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=818773962]Hugs Lib[/url] mod. Please make sure you install that mod first and have it load before this one.
+
+[h2]How to use this mod[/h2]
+Random factions adds 4 placeholder factions (see below), each of which is randomly replaced with another faction. Dr. Plantabyte personally recommends 4 random, 2 civil, 2 rough, and 1 pirate factions, plus 1 each of Mechanoid hive and Insect geneline, but you can do any combination you want.
+
+After clicking [b]Generate[/b], you will only see the random factions as '?' icons. You won't know who your neighbors will be until the game starts. As soon as your pawns spawn in the new world, you will be able to see the new factions in the world map.
+
+[img]https://steamuserimages-a.akamaihd.net/ugc/2006946285962316836/E67F61E91B605CE4EC99343D82D53C27072537A2/?imw=5000&amp;amp;imh=5000&amp;amp;ima=fit&amp;amp;impolicy=Letterbox&amp;amp;imcolor=#000000&amp;amp;letterbox=false[/img]
+
+[h2]Mod Options[/h2]
+From the main menu screen, click [b]Options - Mod options - Random Factions[/b] to see the options for this mod.
+[img]https://steamuserimages-a.akamaihd.net/ugc/5099795232535780284/8FCE538EC0FBD4F0965D230519D3AFB402F9ACFE/?imw=5000&amp;amp;imh=5000&amp;amp;ima=fit&amp;amp;impolicy=Letterbox&amp;amp;imcolor=#000000&amp;amp;letterbox=false[/img]
+
+* [b]Re-organize Factions:[/b] If checked, then the New Colony screen will start with only random factions instead of standard factions (checked by default)
+* [b]% Xenotype Frequency:[/b] ()if you do not have Biotech DLC installed, this option does nothing) 0-100% control of how often to convert a baseliner faction into a random xenotype factions (default 15%)
+* [b]Allow Duplicate Factions:[/b] If checked, then the same faction may be chosen multiple times, e.g. your would could end up with 3 different Rough Outlander Factions (unchecked by default)
+
+
+[h2]Features[/h2]
+
+[h3]Random Factions[/h3]
+
+Note: Hidden factions such as Mechanoids Hive, Insect Genelineand the Empire will *not* be randomly selected
+* Random Faction: replaced with a randomly selected faction
+* Random Civil Faction: replaced with a randomly selected neutral faction
+* Random Rough Faction: replaced with a randomly selected aggressive faction
+* Random Pirate Faction: replaced with a randomly selected permanently hostile faction
+
+[h3]Random Xenotypes[/h3]
+
+If you have Biotech DLC installed, then not only do random factions pick a faction when the game starts, but may also substitute the baseliner humans for a randomly selected xenotype.
+
+For example, if you have both [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2231295285]VFE Vikings[/url] and the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2883216840]Mythic Biotech Expansion[/url] mods installed, then there is a chance that your world may have *Dragon Vikings*!
+
+[h2]Integration With Other Mods[/h2]
+Any mod that adds a new faction will automatically be detected by Random Factions and will randomly be added to the world when you use the random selection factions described above.
+
+In addition, the following mods unlock extra features when installed alongside Random Factions:
+
+[h3]Faction Control[/h3]
+Random Factions does not interfere with Faction Control, nor is it affected by it.
+
+[h3]Vanilla Framework Expanded (VFE) Core[/h3]
+As of update 1.4.2, new factions added by Random Factions will be ignored by VFE Core's mid-game new faction detector, since there is no logical reason to spawn them mid-game (previously, VFE would spam you with pop-ups after adding Random Factions mid-game).
+
+[h3]Vanilla Factions Expanded - Mechanoids &amp;amp; Insectoids[/h3]
+If VFE Mechanoids and/or VFE Insectiods are also installed, then Random Factions will add random factions called "random mechanoid" and "random insectoid", which have a 50-50 chance of turning into either the vanilla version or the VFE version of mechanoids or insectoids respectively.
+
+[h2]Game Saves[/h2]
+Installing Random Factions will have no effect on existing game saves. You will have to create a new game to utilize the random factions mechanics.
+
+In general, uninstalling any mod which adds a faction or xenotype used in your game save can cause data corruption. Uninstalling Random Factions itself can only damage your game save if you have Biotech DLC installed and a xenotype version of a basliner mod was added to your world. In this case, those random xenotype factions will stop working when you load the game without Random Factions.
+
+[h2]Use, Distribution, and Licensing[/h2]
+Random Factions Rimworld Mod is licensed under the Attribution 4.0 International (CC BY 4.0) Creative Commons License.
+
+* You may include this mod in any of your mod packs (you do not need to ask for permission)
+* You may use or remix any content from this mod **so long as you credit Dr. Plantabyte as the original author and provide a link to this page or [url=https://github.com/DrPlantabyte/Ran
+
+[img]https://i.imgur.com/PwoNOj4.png[/img]
+[list]
+[*] See if the the error persists if you just have this mod and its requirements active.
+[*] If not, try adding your other mods until it happens again.
+[*] Post your error-log using [url=https://steamcommunity.com/workshop/filedetails/?id=818773962]HugsLib[/url] or the standalone [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404]Uploader[/url] and command Ctrl+F12
+[*] For best support, please use the Discord-channel for error-reporting.
+[*] Do not report errors by making a discussion-thread, I get no notification of that.
+[*] If you have the solution for a problem, please post it to the GitHub repository.
+[*] Use [url=https://github.com/RimSort/RimSort/releases/latest]RimSort[/url] to sort your mods
+[/list]</description>
+  <modVersion IgnoreIfNoMatchingField="True">1.5.1</modVersion>
+</ModMetaData>
