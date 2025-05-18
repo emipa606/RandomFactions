@@ -31,7 +31,7 @@ public abstract class FactionFilter
 {
     protected abstract bool Matches(Faction f);
 
-    public static List<Faction> filterFactions(IEnumerable<Faction> allFactions, params FactionFilter[] filters)
+    public static List<Faction> FilterFactions(IEnumerable<Faction> allFactions, params FactionFilter[] filters)
     {
         var output = new List<Faction>();
         foreach (var fac in allFactions)

@@ -41,10 +41,10 @@ namespace RandomFactions;
 public class RandomFactionsMod : ModBase
 {
     public static readonly string RANDOM_CATEGORY_NAME = "Random";
-    public static readonly string XENOPATCH_CATEGORY_NAME = "Xenopatch";
-    private readonly Dictionary<string, FactionDef> patchedXenotypeFactions = new Dictionary<string, FactionDef>();
-    private readonly Dictionary<FactionDef, int> randCountRecord = new Dictionary<FactionDef, int>();
-    private readonly Dictionary<FactionDef, int> zeroCountRecord = new Dictionary<FactionDef, int>();
+    private static readonly string XENOPATCH_CATEGORY_NAME = "Xenopatch";
+    private readonly Dictionary<string, FactionDef> patchedXenotypeFactions = new();
+    private readonly Dictionary<FactionDef, int> randCountRecord = new();
+    private readonly Dictionary<FactionDef, int> zeroCountRecord = new();
     private SettingHandle<bool> allowDuplicates;
     private SettingHandle<bool> removeOtherFactions;
     private SettingHandle<int> xenoPercentHandle;
@@ -61,18 +61,18 @@ Each ModBase class needs to have a unique identifier. Provide yours by overridin
          */
         "RandFactions";
 
-    public static bool isXenotypePatchable(FactionDef def)
+    public static bool IsXenotypePatchable(FactionDef def)
     {
         return !(def.isPlayer || def.hidden || def.maxConfigurableAtWorldCreation <= 1
                  || RANDOM_CATEGORY_NAME.EqualsIgnoreCase(def.categoryTag));
     }
 
-    public static bool isXenotypeReplaceable(FactionDef def)
+    public static bool IsXenotypeReplaceable(FactionDef def)
     {
-        return isXenotypePatchable(def) && (def.xenotypeSet == null || def.xenotypeSet.BaselinerChance >= 0.65);
+        return IsXenotypePatchable(def) && (def.xenotypeSet == null || def.xenotypeSet.BaselinerChance >= 0.65);
     }
 
-    public static string defListToString(IEnumerable<Def> allDefs)
+    private static string defListToString(IEnumerable<Def> allDefs)
     {
         var s = "";
         foreach (var def in allDefs)
@@ -88,9 +88,9 @@ Each ModBase class needs to have a unique identifier. Provide yours by overridin
         return s;
     }
 
-    public static string xenoFactionDefName(XenotypeDef xdef, FactionDef fdef)
+    public static string XenoFactionDefName(XenotypeDef xdef, FactionDef fdef)
     {
-        return xdef.defName + fdef.defName;
+        return $"{xdef.defName}{fdef.defName}";
     }
     /*
 Property Notes: HugsLib.ModBase.*
@@ -174,14 +174,14 @@ Since A17 it no longer matters where you initialize your settings handles, since
             // if VFE mods are installed, need to tell VFE Core to update the cache or there will be a Dictionary key error
             // call VFECore.ScenPartUtility.SetCache() by reflection (which is tricky because it is in a different assdembly)
             var done = false;
-            foreach (var asmb in AppDomain.CurrentDomain.GetAssemblies())
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 if (done)
                 {
                     break;
                 }
 
-                foreach (var classType in asmb.GetTypes())
+                foreach (var classType in assembly.GetTypes())
                 {
                     if (done)
                     {
@@ -222,18 +222,18 @@ Since A17 it no longer matters where you initialize your settings handles, since
         var newDefs = new List<FactionDef>();
         foreach (var def in DefDatabase<FactionDef>.AllDefs)
         {
-            if (!isXenotypePatchable(def))
+            if (!IsXenotypePatchable(def))
             {
                 continue;
             }
 
-            foreach (var xenodef in DefDatabase<XenotypeDef>.AllDefs)
+            foreach (var xenotypeDef in DefDatabase<XenotypeDef>.AllDefs)
             {
                 var defCopy = cloneDef(def);
-                defCopy.defName = xenoFactionDefName(xenodef, defCopy);
+                defCopy.defName = XenoFactionDefName(xenotypeDef, defCopy);
                 defCopy.categoryTag = XENOPATCH_CATEGORY_NAME;
-                defCopy.label = xenodef.label + " " + defCopy.label;
-                var xenoChance = new XenotypeChance(xenodef, 1.0f);
+                defCopy.label = $"{xenotypeDef.label} {defCopy.label}";
+                var xenoChance = new XenotypeChance(xenotypeDef, 1.0f);
                 var xenotypeChances = new List<XenotypeChance>
                 {
                     xenoChance
@@ -267,7 +267,7 @@ Since A17 it no longer matters where you initialize your settings handles, since
         }
     }
 
-    private FactionDef cloneDef(FactionDef def)
+    private static FactionDef cloneDef(FactionDef def)
     {
         // use reflection magic to do a 1-deep clone of the def
         var cpy = new FactionDef();
@@ -276,13 +276,13 @@ Since A17 it no longer matters where you initialize your settings handles, since
         return cpy;
     }
 
-    private void reflectionCopy(object A, object B)
+    private static void reflectionCopy(object a, object b)
     {
-        var fields = A.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+        var fields = a.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
         foreach (var field in fields)
         {
-            var value = field.GetValue(A);
-            field.SetValue(B, value);
+            var value = field.GetValue(a);
+            field.SetValue(b, value);
         }
         /*
         PropertyInfo[] props = A.GetType().GetProperties();
@@ -385,7 +385,7 @@ Note, that not everything may be initialized after the scene change, and the gam
         hideXenoPatches(!GenScene.InEntryScene);
     }
 
-    private void hideXenoPatches(bool hide)
+    private static void hideXenoPatches(bool hide)
     {
         foreach (var def in DefDatabase<FactionDef>.AllDefs)
         {
@@ -406,15 +406,14 @@ This is only called after the game has started, not on the "select landing spot"
 */
         base.WorldLoaded();
         Logger.Message("World loaded! Applying Random generation rules to factions...");
-        var world = Find.World;
-        fixVFENewFactionPopups(world);
-        Logger.Trace(string.Format("Found {0} faction definitions: {1}", DefDatabase<FactionDef>.DefCount,
-            defListToString(DefDatabase<FactionDef>.AllDefs)));
+        fixVFENewFactionPopups(Find.World);
+        Logger.Trace(
+            $"Found {DefDatabase<FactionDef>.DefCount} faction definitions: {defListToString(DefDatabase<FactionDef>.AllDefs)}");
         var hasBiotech = ModsConfig.BiotechActive;
         if (hasBiotech)
         {
-            Logger.Trace(string.Format("Found {0} xenotype definitions: {1}", DefDatabase<XenotypeDef>.DefCount,
-                defListToString(DefDatabase<XenotypeDef>.AllDefs)));
+            Logger.Trace(
+                $"Found {DefDatabase<XenotypeDef>.DefCount} xenotype definitions: {defListToString(DefDatabase<XenotypeDef>.AllDefs)}");
         }
 
         // load save data store (if it exists)
@@ -432,7 +431,8 @@ This is only called after the game has started, not on the "select landing spot"
             xenoPercent = 0;
         }
 
-        var fgen = new RandomFactionGenerator(world, xenoPercent, DefDatabase<FactionDef>.AllDefs, ignoreList.ToArray(),
+        var factionGenerator = new RandomFactionGenerator(xenoPercent, DefDatabase<FactionDef>.AllDefs,
+            ignoreList.ToArray(),
             hasBiotech, Logger);
         var allFactionList = new List<Faction>();
         var replaceList = new List<Faction>();
@@ -458,27 +458,28 @@ This is only called after the game has started, not on the "select landing spot"
         {
             if (pfFac.def.defName.EqualsIgnoreCase("RF_RandomFaction"))
             {
-                fgen.replaceWithRandomNonHiddenFaction(pfFac, allowDuplicates.Value);
+                factionGenerator.ReplaceWithRandomNonHiddenFaction(pfFac, allowDuplicates.Value);
             }
             else if (pfFac.def.defName.EqualsIgnoreCase("RF_RandomPirateFaction"))
             {
-                fgen.replaceWithRandomNonHiddenEnemyFaction(pfFac, allowDuplicates.Value);
+                factionGenerator.ReplaceWithRandomNonHiddenEnemyFaction(pfFac, allowDuplicates.Value);
             }
             else if (pfFac.def.defName.EqualsIgnoreCase("RF_RandomRoughFaction"))
             {
-                fgen.replaceWithRandomNonHiddenWarlordFaction(pfFac, allowDuplicates.Value);
+                factionGenerator.ReplaceWithRandomNonHiddenWarlordFaction(pfFac, allowDuplicates.Value);
             }
             else if (pfFac.def.defName.EqualsIgnoreCase("RF_RandomTradeFaction"))
             {
-                fgen.replaceWithRandomNonHiddenTraderFaction(pfFac, allowDuplicates.Value);
+                factionGenerator.ReplaceWithRandomNonHiddenTraderFaction(pfFac, allowDuplicates.Value);
             }
             else if (pfFac.def.defName.EqualsIgnoreCase("RF_RandomMechanoid"))
             {
-                fgen.replaceWithRandomNamedFaction(pfFac, allowDuplicates.Value, "Mechanoid", "VFE_Mechanoid");
+                factionGenerator.ReplaceWithRandomNamedFaction(pfFac, allowDuplicates.Value, "Mechanoid",
+                    "VFE_Mechanoid");
             }
             else if (pfFac.def.defName.EqualsIgnoreCase("RF_RandomInsectoid"))
             {
-                fgen.replaceWithRandomNamedFaction(pfFac, allowDuplicates.Value, "Insect", "VFEI_Insect");
+                factionGenerator.ReplaceWithRandomNamedFaction(pfFac, allowDuplicates.Value, "Insect", "VFEI_Insect");
             }
             else
             {
@@ -493,22 +494,22 @@ This is only called after the game has started, not on the "select landing spot"
 
     private void fixVFENewFactionPopups(World world)
     {
-        IEnumerable<FactionDef> patchFacs = patchedXenotypeFactions.Values;
-        IEnumerable<FactionDef> randFacs = FactionDefFilter.filterFactionDefs(
+        IEnumerable<FactionDef> factionDefs = patchedXenotypeFactions.Values;
+        IEnumerable<FactionDef> filterFactionDefs = FactionDefFilter.FilterFactionDefs(
             DefDatabase<FactionDef>.AllDefs, new CategoryTagFactionDefFilter(RANDOM_CATEGORY_NAME));
         // invoke Find.World.GetComponent<VFECore.NewFactionSpawningState>().Ignore(factionDef) 
         // for all off-books factions or the player will be buried in pop-up spam
-        Type NewFactionSpawningStateClassType = null;
-        MethodInfo IgnoreMethodHandle = null;
+        Type newFactionSpawningStateClassType = null;
+        MethodInfo ignoreMethodHandle = null;
         var done = false;
-        foreach (var asmb in AppDomain.CurrentDomain.GetAssemblies())
+        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
         {
             if (done)
             {
                 break;
             }
 
-            foreach (var classType in asmb.GetTypes())
+            foreach (var classType in assembly.GetTypes())
             {
                 if (done)
                 {
@@ -533,34 +534,34 @@ This is only called after the game has started, not on the "select landing spot"
                     //Logger.Message(string.Format("Found {0}.{1}.{2}({3})", asmb.FullName, classType.Name, methodHandle.Name, t));
                     if (!"Ignore".Equals(methodHandle.Name)
                         || methParams.Length != 1
-                        || !methParams[0].ParameterType.IsAssignableFrom(patchFacs.GetType()))
+                        || !methParams[0].ParameterType.IsAssignableFrom(factionDefs.GetType()))
                     {
                         continue;
                     }
 
-                    NewFactionSpawningStateClassType = classType;
-                    IgnoreMethodHandle = methodHandle;
+                    newFactionSpawningStateClassType = classType;
+                    ignoreMethodHandle = methodHandle;
                     done = true;
                     break;
                 }
             }
         }
 
-        if (NewFactionSpawningStateClassType == null)
+        if (newFactionSpawningStateClassType == null)
         {
             return;
         }
 
         // VFE installed and WorldComponent VFECore.NewFactionSpawningState found
         // tell VFE to ignore patch factions
-        object vfecomp = world.GetComponent(NewFactionSpawningStateClassType);
-        if (vfecomp == null)
+        object worldComponent = world.GetComponent(newFactionSpawningStateClassType);
+        if (worldComponent == null)
         {
             return;
         }
 
-        IgnoreMethodHandle.Invoke(vfecomp, [randFacs]);
-        IgnoreMethodHandle.Invoke(vfecomp, [patchFacs]);
+        ignoreMethodHandle.Invoke(worldComponent, [filterFactionDefs]);
+        ignoreMethodHandle.Invoke(worldComponent, [factionDefs]);
         Logger.Message(
             "Invoked World.GetComponent<VFECore.NewFactionSpawningState>().Ignore(...) to tell VFE to ignore random and xenotype-patched faction defs");
     }

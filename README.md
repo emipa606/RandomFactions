@@ -1,4 +1,4 @@
-# [Random Factions (Continued)]()
+# [Random Factions (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3402848147)
 
 ![Image](https://i.imgur.com/buuPQel.png)
 
@@ -110,4 +110,6 @@ Random Factions Rimworld Mod is licensed under the Attribution 4.0 International
 -  If you have the solution for a problem, please post it to the GitHub repository.
 -  Use [RimSort](https://github.com/RimSort/RimSort/releases/latest) to sort your mods
 
+ 
 
+[![Image](https://img.shields.io/github/v/release/emipa606/RandomFactions?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/3402848147) | tags:  unique

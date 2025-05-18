@@ -32,7 +32,7 @@ public abstract class FactionDefFilter
 {
     protected abstract bool Matches(FactionDef f);
 
-    public static List<FactionDef> filterFactionDefs(IEnumerable<FactionDef> allFactionDefs,
+    public static List<FactionDef> FilterFactionDefs(IEnumerable<FactionDef> allFactionDefs,
         params FactionDefFilter[] filters)
     {
         var output = new List<FactionDef>();

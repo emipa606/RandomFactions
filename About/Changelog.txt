@@ -1,5 +1,8 @@
 # Changelog for RandomFactions
 
+1.5.2 - Reorganize code, added some nullchecks
+
+
 1.5.1 - Updated for 1.5, added translation-support
 Used DeepL to update translations for ChineseSimplified, French, German
 
