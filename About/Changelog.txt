@@ -1,5 +1,8 @@
 # Changelog for RandomFactions
 
+1.5.3 - Faction relations should be more fair
+
+
 1.5.2 - Reorganize code, added some nullchecks
 
 

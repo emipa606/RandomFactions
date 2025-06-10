@@ -146,24 +146,24 @@ public class RandomFactionGenerator
     {
         modLogger.Message(
             $"Replacing faction {oldFaction.Name} ({oldFaction.def.defName}) with faction {newFaction.Name} ({newFaction.def.defName})");
-        var ignoreRelation = new FactionRelation(oldFaction, FactionRelationKind.Neutral)
-        {
-            baseGoodwill = 0
-        };
-        foreach (var faction in priorFactions)
-        {
-            if (faction.IsPlayer)
-            {
-                continue;
-            }
+        //var ignoreRelation = new FactionRelation(oldFaction, FactionRelationKind.Neutral)
+        //{
+        //    baseGoodwill = 0
+        //};
+        //foreach (var faction in priorFactions)
+        //{
+        //    if (faction.IsPlayer)
+        //    {
+        //        continue;
+        //    }
 
-            if (faction.Equals(oldFaction))
-            {
-                continue;
-            }
+        //    if (faction.Equals(oldFaction))
+        //    {
+        //        continue;
+        //    }
 
-            faction.SetRelation(ignoreRelation);
-        }
+        //    faction.SetRelation(ignoreRelation);
+        //}
 
         foreach (var stl in Find.WorldObjects.Settlements)
         {
