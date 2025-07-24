@@ -83,7 +83,7 @@ public class RandomFactionGenerator
             return;
         }
 
-        replaceFaction(faction, newFaction, existingFactions);
+        replaceFaction(faction, newFaction);
     }
 
     public void ReplaceWithRandomNonHiddenEnemyFaction(Faction faction, bool allowDuplicates)
@@ -97,7 +97,7 @@ public class RandomFactionGenerator
             return;
         }
 
-        replaceFaction(faction, newFaction, existingFactions);
+        replaceFaction(faction, newFaction);
     }
 
     public void ReplaceWithRandomNonHiddenWarlordFaction(Faction faction, bool allowDuplicates)
@@ -111,7 +111,7 @@ public class RandomFactionGenerator
             return;
         }
 
-        replaceFaction(faction, newFaction, existingFactions);
+        replaceFaction(faction, newFaction);
     }
 
     public void ReplaceWithRandomNonHiddenTraderFaction(Faction faction, bool allowDuplicates)
@@ -125,7 +125,7 @@ public class RandomFactionGenerator
             return;
         }
 
-        replaceFaction(faction, newFaction, existingFactions);
+        replaceFaction(faction, newFaction);
     }
 
     public void ReplaceWithRandomNamedFaction(Faction faction, bool allowDuplicates, params string[] validDefNames)
@@ -139,31 +139,13 @@ public class RandomFactionGenerator
             return;
         }
 
-        replaceFaction(faction, newFaction, existingFactions);
+        replaceFaction(faction, newFaction);
     }
 
-    private void replaceFaction(Faction oldFaction, Faction newFaction, IEnumerable<Faction> priorFactions)
+    private void replaceFaction(Faction oldFaction, Faction newFaction)
     {
         modLogger.Message(
             $"Replacing faction {oldFaction.Name} ({oldFaction.def.defName}) with faction {newFaction.Name} ({newFaction.def.defName})");
-        //var ignoreRelation = new FactionRelation(oldFaction, FactionRelationKind.Neutral)
-        //{
-        //    baseGoodwill = 0
-        //};
-        //foreach (var faction in priorFactions)
-        //{
-        //    if (faction.IsPlayer)
-        //    {
-        //        continue;
-        //    }
-
-        //    if (faction.Equals(oldFaction))
-        //    {
-        //        continue;
-        //    }
-
-        //    faction.SetRelation(ignoreRelation);
-        //}
 
         foreach (var stl in Find.WorldObjects.Settlements)
         {
