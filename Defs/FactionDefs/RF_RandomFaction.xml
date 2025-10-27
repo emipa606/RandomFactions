@@ -152,7 +152,7 @@
   <FactionDef ParentName="RF_RandomFactionBase">
     <defName>RF_RandomFaction</defName>
     <label>random faction</label>
-    <description>Choose a random faction from among all available factions at world generation time (excludes hidden factions such as the Machanoid hive)</description>
+    <description>Selects a random faction from all available factions during world generation, excluding hidden factions such as the Mechanoid hive.</description>
     <factionIconPath>World/WorldObjects/RandFaction_Expanding/RandFaction</factionIconPath>
     <colorSpectrum>
       <li>(0.2, 0.7, 0.2)</li>
@@ -174,7 +174,7 @@
   <FactionDef ParentName="RF_RandomFactionBase">
     <defName>RF_RandomPirateFaction</defName>
     <label>random pirate faction</label>
-    <description>Choose a random hostile faction from among all available savage/pirate factions at world generation time (excludes hidden factions such as the Machanoid hive)</description>
+    <description>Selects a random hostile faction from all available savage/pirate factions during world generation, excluding hidden factions such as the Mechanoid hive.</description>
     <factionIconPath>World/WorldObjects/RandFaction_Expanding/RandPirate</factionIconPath>
     <colorSpectrum>
       <li>(0.9, 0.2, 0.2)</li>
@@ -195,7 +195,7 @@
   <FactionDef ParentName="RF_RandomFactionBase">
     <defName>RF_RandomRoughFaction</defName>
     <label>random rough faction</label>
-    <description>Choose a random aggressive faction from among all available rough/war-like factions at world generation time (excludes hidden factions such as the Machanoid hive)</description>
+    <description>Selects a random aggressive faction from all available rough/war-like factions during world generation, excluding hidden factions such as the Mechanoid hive.</description>
     <factionIconPath>World/WorldObjects/RandFaction_Expanding/RandRough</factionIconPath>
     <colorSpectrum>
       <li>(0.7, 0.7, 0.2)</li>
@@ -215,7 +215,7 @@
   <FactionDef ParentName="RF_RandomFactionBase">
     <defName>RF_RandomTradeFaction</defName>
     <label>random civil faction</label>
-    <description>Choose a random non-hostile faction from among all available non-hostile factions at world generation time (excludes hidden factions such as the Machanoid hive)</description>
+    <description>Selects a random non-hostile faction from all available non-hostile factions during world generation, excluding hidden factions such as the Mechanoid hive.</description>
     <factionIconPath>World/WorldObjects/RandFaction_Expanding/RandNeutral</factionIconPath>
     <colorSpectrum>
       <li>(0.2, 0.2, 0.7)</li>
