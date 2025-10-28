@@ -5,11 +5,11 @@
   "SocialImageSet": true,
   "SearchTags": " unique",
   "PreviewVersion": "1.6",
-  "LastXmlCleaning": "2025-07-24T16:59:50.8568683+02:00",
+  "LastXmlCleaning": "2025-10-28T21:47:51.8225669+01:00",
   "Patches": false,
   "Defs": true,
   "Assemblies": true,
-  "LinesOfCode": 50199,
-  "LinesOfXML": 11730,
-  "CodeBaseSize": 76
+  "LinesOfCode": 50771,
+  "LinesOfXML": 11710,
+  "CodeBaseSize": 75
 }

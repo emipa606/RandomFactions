@@ -41,8 +41,8 @@ namespace RandomFactions;
 
 public class RandomFactionsMod : ModBase
 {
-    public static readonly string RANDOM_CATEGORY_NAME = "Random";
-    private static readonly string XENOPATCH_CATEGORY_NAME = "Xenopatch";
+    public const string RandomCategoryName = "Random";
+    private const string XenopatchCategoryName = "Xenopatch";
     private readonly Dictionary<string, FactionDef> patchedXenotypeFactions = new();
     private readonly Dictionary<FactionDef, int> randCountRecord = new();
     private readonly Dictionary<FactionDef, int> zeroCountRecord = new();
@@ -65,12 +65,7 @@ Each ModBase class needs to have a unique identifier. Provide yours by overridin
     public static bool IsXenotypePatchable(FactionDef def)
     {
         return !(def.isPlayer || def.hidden || def.maxConfigurableAtWorldCreation <= 1
-                 || RANDOM_CATEGORY_NAME.EqualsIgnoreCase(def.categoryTag));
-    }
-
-    public static bool IsXenotypeReplaceable(FactionDef def)
-    {
-        return IsXenotypePatchable(def) && (def.xenotypeSet == null || def.xenotypeSet.BaselinerChance >= 0.65);
+                 || RandomCategoryName.EqualsIgnoreCase(def.categoryTag));
     }
 
     private static string defListToString(IEnumerable<Def> allDefs)
@@ -221,7 +216,7 @@ Since A17 it no longer matters where you initialize your settings handles, since
     private void createXenoFactions()
     {
         var newDefs = new List<FactionDef>();
-        var violenceCapableXenotypes = GetViolenceCapableXenotypes();
+        var violenceCapableXenotypes = getViolenceCapableXenotypes();
 
         foreach (var def in DefDatabase<FactionDef>.AllDefs)
         {
@@ -234,7 +229,7 @@ Since A17 it no longer matters where you initialize your settings handles, since
             {
                 var defCopy = cloneDef(def);
                 defCopy.defName = XenoFactionDefName(xenotypeDef, defCopy);
-                defCopy.categoryTag = XENOPATCH_CATEGORY_NAME;
+                defCopy.categoryTag = XenopatchCategoryName;
                 defCopy.label = $"{xenotypeDef.label} {defCopy.label}";
                 var xenoChance = new XenotypeChance(xenotypeDef, 1.0f);
                 var xenotypeChances = new List<XenotypeChance>
@@ -270,23 +265,23 @@ Since A17 it no longer matters where you initialize your settings handles, since
         }
     }
 
-    private List<XenotypeDef> GetViolenceCapableXenotypes()
+    private static List<XenotypeDef> getViolenceCapableXenotypes()
     {
         return DefDatabase<XenotypeDef>.AllDefs.Where(x =>
         {
-            if (x.genes != null)
+            if (x.genes == null)
             {
-                var combinedDisabled = WorkTags.None;
-                foreach (var gene in x.genes)
-                {
-                    combinedDisabled |= gene.disabledWorkTags;
-                }
-
-                // Keep only xenotypes that do NOT disable violent work, otherwise their generation will throw an exception since you can't have faction leaders incapable of violence!
-                return (combinedDisabled & WorkTags.Violent) == 0;
+                return true;
             }
 
-            return true;
+            var combinedDisabled = WorkTags.None;
+            foreach (var gene in x.genes)
+            {
+                combinedDisabled |= gene.disabledWorkTags;
+            }
+
+            // Keep only xenotypes that do NOT disable violent work, otherwise their generation will throw an exception since you can't have faction leaders incapable of violence!
+            return (combinedDisabled & WorkTags.Violent) == 0;
         }).ToList();
     }
 
@@ -345,7 +340,7 @@ Note, that the setting changed may belong to another mod.*/
         }*/
         foreach (var def in DefDatabase<FactionDef>.AllDefs)
         {
-            if (def.hidden || def.isPlayer || RANDOM_CATEGORY_NAME.EqualsIgnoreCase(def.categoryTag)
+            if (def.hidden || def.isPlayer || RandomCategoryName.EqualsIgnoreCase(def.categoryTag)
                 || "Empire".EqualsIgnoreCase(def.defName))
             {
                 continue;
@@ -381,7 +376,7 @@ Note, that the setting changed may belong to another mod.*/
 
         foreach (var def in DefDatabase<FactionDef>.AllDefs)
         {
-            if (!RANDOM_CATEGORY_NAME.EqualsIgnoreCase(def.categoryTag))
+            if (!RandomCategoryName.EqualsIgnoreCase(def.categoryTag))
             {
                 continue;
             }
@@ -412,7 +407,7 @@ Note, that not everything may be initialized after the scene change, and the gam
     {
         foreach (var def in DefDatabase<FactionDef>.AllDefs)
         {
-            if (XENOPATCH_CATEGORY_NAME.EqualsIgnoreCase(def.categoryTag))
+            if (XenopatchCategoryName.EqualsIgnoreCase(def.categoryTag))
             {
                 def.hidden = hide;
             }
@@ -429,7 +424,7 @@ This is only called after the game has started, not on the "select landing spot"
 */
         base.WorldLoaded();
         Logger.Message("World loaded! Applying Random generation rules to factions...");
-        fixVFENewFactionPopups(Find.World);
+        fixVfeNewFactionPopups(Find.World);
         Logger.Trace(
             $"Found {DefDatabase<FactionDef>.DefCount} faction definitions: {defListToString(DefDatabase<FactionDef>.AllDefs)}");
         var hasBiotech = ModsConfig.BiotechActive;
@@ -467,8 +462,8 @@ This is only called after the game has started, not on the "select landing spot"
         foreach (var fac in allFactionList)
         {
             Logger.Trace(
-                $"Found faction: {fac.Name} ({fac.def.defName})\tisPlayer == {fac.IsPlayer}\tisRandom == {fac.def.categoryTag.EqualsIgnoreCase(RANDOM_CATEGORY_NAME)}\tisDefeated == {fac.defeated}"); // TODO: remove
-            if (!fac.def.categoryTag.EqualsIgnoreCase(RANDOM_CATEGORY_NAME) || fac.defeated)
+                $"Found faction: {fac.Name} ({fac.def.defName})\tisPlayer == {fac.IsPlayer}\tisRandom == {fac.def.categoryTag.EqualsIgnoreCase(RandomCategoryName)}\tisDefeated == {fac.defeated}"); // TODO: remove
+            if (!fac.def.categoryTag.EqualsIgnoreCase(RandomCategoryName) || fac.defeated)
             {
                 continue;
             }
@@ -515,11 +510,11 @@ This is only called after the game has started, not on the "select landing spot"
     }
 
 
-    private void fixVFENewFactionPopups(World world)
+    private void fixVfeNewFactionPopups(World world)
     {
         IEnumerable<FactionDef> factionDefs = patchedXenotypeFactions.Values;
         IEnumerable<FactionDef> filterFactionDefs = FactionDefFilter.FilterFactionDefs(
-            DefDatabase<FactionDef>.AllDefs, new CategoryTagFactionDefFilter(RANDOM_CATEGORY_NAME));
+            DefDatabase<FactionDef>.AllDefs, new CategoryTagFactionDefFilter(RandomCategoryName));
         // invoke Find.World.GetComponent<VFECore.NewFactionSpawningState>().Ignore(factionDef) 
         // for all off-books factions or the player will be buried in pop-up spam
         Type newFactionSpawningStateClassType = null;

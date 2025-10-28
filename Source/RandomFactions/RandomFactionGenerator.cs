@@ -61,7 +61,7 @@ public class RandomFactionGenerator
         // load existing faction definitions
         foreach (var def in allFactionDefs)
         {
-            if (def.categoryTag.EqualsIgnoreCase(RandomFactionsMod.RANDOM_CATEGORY_NAME))
+            if (def.categoryTag.EqualsIgnoreCase(RandomFactionsMod.RandomCategoryName))
             {
                 continue;
             } // skip factions from this mod
@@ -159,7 +159,7 @@ public class RandomFactionGenerator
         Find.World.factionManager.Add(newFaction);
     }
 
-    private int countFactionsOfType(FactionDef def, IEnumerable<Faction> factions)
+    private static int countFactionsOfType(FactionDef def, IEnumerable<Faction> factions)
     {
         var count = 0;
         foreach (var f in factions)
@@ -327,7 +327,7 @@ public class RandomFactionGenerator
         }
     }
 
-    private Faction generateFactionFromDef(FactionDef def, IEnumerable<Faction> existingFactions)
+    private static Faction generateFactionFromDef(FactionDef def, IEnumerable<Faction> existingFactions)
     {
         var relations = defaultRelations(def, existingFactions);
         try
@@ -364,7 +364,7 @@ public class RandomFactionGenerator
 
     private static int defaultGoodwill(FactionDef def)
     {
-        if (def.categoryTag.EqualsIgnoreCase(RandomFactionsMod.RANDOM_CATEGORY_NAME))
+        if (def.categoryTag.EqualsIgnoreCase(RandomFactionsMod.RandomCategoryName))
         {
             return 0;
         }
@@ -384,7 +384,7 @@ public class RandomFactionGenerator
 
     private static int defaultGoodwill(Faction fac)
     {
-        if (fac.def.categoryTag.EqualsIgnoreCase(RandomFactionsMod.RANDOM_CATEGORY_NAME))
+        if (fac.def.categoryTag.EqualsIgnoreCase(RandomFactionsMod.RandomCategoryName))
         {
             return 0;
         }

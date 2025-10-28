@@ -1,14 +1,14 @@
 # [Random Factions (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3402848147)
 
-![Image](https://i.imgur.com/buuPQel.png)
+![Image](https://i.postimg.cc/1X4HT06h/Info.png)
 
 Update of Dr. Plantabytes mod https://steamcommunity.com/sharedfiles/filedetails/?id=2896649114
 
 - Added translation support
 
-![Image](https://i.imgur.com/pufA0kM.png)
+![Image](https://i.postimg.cc/8csH3dWV/Notice.png)
 	
-![Image](https://i.imgur.com/Z4GOv8H.png)
+![Image](https://i.postimg.cc/hvhrw8xB/Original-Description.png)
 
 # Random Factions Rimworld Mod
 
@@ -98,13 +98,13 @@ Random Factions Rimworld Mod is licensed under the Attribution 4.0 International
 * You may include this mod in any of your mod packs (you do not need to ask for permission)
 * You may use or remix any content from this mod **so long as you credit Dr. Plantabyte as the original author and provide a link to this page or [url=https://github.com/DrPlantabyte/Ran
 
-![Image](https://i.imgur.com/PwoNOj4.png)
+![Image](https://i.postimg.cc/x8qR7GH9/Reporting-Issues.png)
 
 
 
 -  See if the the error persists if you just have this mod and its requirements active.
 -  If not, try adding your other mods until it happens again.
--  Post your error-log using the [Log Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) or the standalone [Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) and command Ctrl+F12
+-  Always post your log using the [Log Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404)
 -  For best support, please use the Discord-channel for error-reporting.
 -  Do not report errors by making a discussion-thread, I get no notification of that.
 -  If you have the solution for a problem, please post it to the GitHub repository.

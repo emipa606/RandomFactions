@@ -20,23 +20,23 @@
   <loadAfter>
     <li>UnlimitedHugs.HugsLib</li>
   </loadAfter>
-  <description>[img]https://i.imgur.com/buuPQel.png[/img]
+  <description>[img]https://i.postimg.cc/1X4HT06h/Info.png[/img]
 Update of Dr. Plantabytes mod https://steamcommunity.com/sharedfiles/filedetails/?id=2896649114
 
 - Added translation support
 
-[img]https://i.imgur.com/pufA0kM.png[/img]
+[img]https://i.postimg.cc/8csH3dWV/Notice.png[/img]
 
 [table]
-    [tr][td][url=https://discord.gg/h5TY6DA][img]https://i.imgur.com/zdzzBrc.png[/img][/url][/td] [td][url=https://github.com/emipa606/RandomFactions][img]https://i.imgur.com/kTkpTOE.png[/img][/url][/td]
+    [tr][td][url=https://discord.gg/h5TY6DA][img]https://i.postimg.cc/T1h9SjbF/Discord.png[/img][/url][/td] [td][url=https://github.com/emipa606/RandomFactions][img]https://i.postimg.cc/fykKF7X4/Github.png[/img][/url][/td]
     [/tr]
     [tr]
-        [td][img]https://i.imgur.com/XLUGyo4.png[/img][/td]
-        [td][img]https://i.imgur.com/Be8E2qJ.png[/img][/td]
+        [td][img]https://i.postimg.cc/Xqh80Zcn/Unsafe-To-Add.png[/img][/td]
+        [td][img]https://i.postimg.cc/brdTM0bP/Remove-May-Work.png[/img][/td]
     [/tr]
 [/table]
 	
-[img]https://i.imgur.com/Z4GOv8H.png[/img]
+[img]https://i.postimg.cc/hvhrw8xB/Original-Description.png[/img]
 [h1]Random Factions Rimworld Mod[/h1]
 Randomly add factions instead of choosing them manually. Every world is unique!
 
@@ -111,11 +111,11 @@ Random Factions Rimworld Mod is licensed under the Attribution 4.0 International
 * You may include this mod in any of your mod packs (you do not need to ask for permission)
 * You may use or remix any content from this mod **so long as you credit Dr. Plantabyte as the original author and provide a link to this page or [url=https://github.com/DrPlantabyte/Ran
 
-[img]https://i.imgur.com/PwoNOj4.png[/img]
+[img]https://i.postimg.cc/x8qR7GH9/Reporting-Issues.png[/img]
 [list]
 [*] See if the the error persists if you just have this mod and its requirements active.
 [*] If not, try adding your other mods until it happens again.
-[*] Post your error-log using the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404]Log Uploader[/url] or the standalone [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404]Uploader[/url] and command Ctrl+F12
+[*] Always post your log using the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404]Log Uploader[/url]
 [*] For best support, please use the Discord-channel for error-reporting.
 [*] Do not report errors by making a discussion-thread, I get no notification of that.
 [*] If you have the solution for a problem, please post it to the GitHub repository.
@@ -123,5 +123,5 @@ Random Factions Rimworld Mod is licensed under the Attribution 4.0 International
 [/list] 
 
 [url=https://steamcommunity.com/sharedfiles/filedetails/changelog/3402848147][img]https://img.shields.io/github/v/release/emipa606/RandomFactions?label=latest%20version&amp;style=plastic&amp;color=9f1111&amp;labelColor=black[/img][/url] | tags:  unique</description>
-  <modVersion IgnoreIfNoMatchingField="True">1.6.0</modVersion>
+  <modVersion IgnoreIfNoMatchingField="True">1.6.1</modVersion>
 </ModMetaData>

@@ -23,7 +23,7 @@ public class TechLevelFactionDefFilter(TechLevel minTl, TechLevel maxTl) : Facti
         return t >= low && t <= high;
     }
 
-    private int toInt(TechLevel tl)
+    private static int toInt(TechLevel tl)
     {
         return (int)tl;
     }

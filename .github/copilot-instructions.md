@@ -1,65 +1,47 @@
-# GitHub Copilot Instructions for RimWorld Modding Project
+# GitHub Copilot Instructions for Random Factions (Continued)
 
 ## Mod Overview and Purpose
 
-This mod for RimWorld enhances the game's faction system by introducing a series of filters and generating random factions based on customizable criteria. The mod aims to provide deeper gameplay mechanics through more dynamic and diverse faction interactions, allowing players to experience a unique and unpredictable world.
+**Random Factions (Continued)** is an updated version of Dr. Plantabyte's mod designed for RimWorld players who enjoy a dynamic and ever-changing environment. The mod's main goal is to enhance the gameplay experience by introducing randomness in faction selection, resulting in unique world compositions each time you start a new game. It automatically integrates with other faction-modifying mods, offering a unique combination of factions, and provides translation support for better accessibility.
 
 ## Key Features and Systems
 
-- **Faction Filters**: Implement various filters that modify faction definitions. These include filters based on temperature, tech level, backstory tags, etc.
-- **Random Faction Generator**: Provides functions to replace existing factions with randomly selected ones, adhering to specified criteria.
-- **XML Integration**: Uses XML configuration files to manage faction settings and filter attributes.
-- **Harmony Patching**: Incorporates Harmony for runtime patching to ensure compatibility and seamless integration with the base game and other mods.
+- **Random Factions**: Automatically generates a diverse set of factions, such as aggressive, neutral, and hostile, on new world generation.
+- **Random Xenotypes (Biotech DLC)**: Replaces baseline human factions with randomly selected xenotype factions if the Biotech DLC is installed.
+- **Mod Options**:
+  - **Re-organize Factions**: Begins the New Colony screen with random factions.
+  - **% Xenotype Frequency**: Controls the likelihood of converting baseline factions into xenotype factions.
+  - **Allow Duplicate Factions**: Permits the same faction type to spawn multiple times.
+- **Integration with Other Mods**: The mod automatically detects new factions added by other mods and incorporates them into the random selection pool. It pairs especially well with mods like Faction Control, and Vanilla Factions Expanded (VFE).
 
 ## Coding Patterns and Conventions
 
-1. **Class and Method Naming**: 
-    - Classes follow the pattern `<Attribute>FactionDefFilter` or `<Attribute>FactionFilter`, indicating their purpose.
-    - Methods are generally verb-based, providing a clear understanding of their action or outcome (e.g., `ReplaceWithRandomNonHiddenFaction`).
-
-2. **Constructor Initialization**:
-    - Each filter class includes a constructor for setting up its specific properties (e.g., temperature, backstory tags).
-
-3. **Abstract Base Classes**:
-    - `FactionDefFilter` and `FactionFilter` serve as abstract base classes, ensuring a common interface for filter operations and encourage code reusability.
-
-4. **Method Overloading**:
-    - Variants of methods cater to different scenarios (e.g., allowing or disallowing duplicate factions).
-
-5. **Code Structure**:
-    - Organized into specific files with a single responsibility principle; each file usually contains one class, enhancing readability and maintainability.
+- **Class Definitions**: The code uses classes derived from either `FactionFilter` or `FactionDefFilter` to define criteria or characteristics for filtering factions.
+- **Abstraction and Inheritance**: Abstract classes such as `FactionFilter` and `FactionDefFilter` provide a base for other filters, promoting code reuse and organization.
+- **Methods**: Meaningful method names like `ReplaceWithRandomNonHiddenFaction` indicate function purpose clearly, following C# naming conventions for readability.
 
 ## XML Integration
 
-While there was an issue parsing XML files from the summary, XML integration is critical for configuration management. Ensure all XML files:
-- Follow RimWorld's XML schema for mod settings and definitions.
-- Properly define new faction def elements and attributes (use the `<Defs>`, `<FactionDefs>` tags).
-
-Use XML files to:
-- Outline configuration settings for different filters.
-- Store persistent mod settings, linked through unique ModBase identifiers.
+- The mod's configuration can be adjusted using XML files, which store settings, such as `ModIdentifier` for different mods like Random Factions.
+- The core mod functionality integrates with XML data to efficiently manage and apply user settings, leveraging RimWorld's robust XML loading system.
 
 ## Harmony Patching
 
-- **Usage**: Utilize Harmony to patch RimWorld's methods, allowing for custom logic insertion or modification without directly altering the base game files.
-- **Initialization**: Ensure all Harmony patches are properly initialized in the `RandomFactionsMod` class.
-- **Best Practices**: Apply patches that are non-intrusive and ensure they are compatible with potential updates and other mods.
+- **Harmony Integration**: Each `ModBase` class is automatically assigned a `HarmonyInstance`, which applies all necessary patches seamlessly. This setup allows the mod to override or enhance RimWorld's existing functionality.
+- **Custom Harmony Methods**: Use private methods within `RandomFactionsMod.cs` to influence game behavior. For example, `fixVFENewFactionPopups` resolves pop-up issues related to VFE integration.
 
 ## Suggestions for Copilot
 
-When using GitHub Copilot to work on this mod, consider the following suggestions:
+1. **Ensure Correct Mod Dependencies**: Being dependent on the HugsLib mod, make sure the order of loading is:
+   - HugsLib
+   - Random Factions (Continued)
 
-1. **Code Suggestions**:
-   - Focus on extending existing filter classes for new faction criteria.
-   - Utilize Copilot to automate method scaffolding for similar pattern-based classes or methods.
+2. **Utilize Class and Method Templates**: When adding new filters or selectors, refer to existing class templates like `AllowedTemperatureFactionDefFilter` and methods like `ReplaceWithRandomNonHiddenFaction`.
+  
+3. **Overriding ModBase Identifiers**: When extending from `ModBase`, always remember to provide a unique `ModIdentifier` to avoid conflicts in settings management.
 
-2. **Refactoring**:
-   - Seek advice from Copilot for restructuring code, especially around complex method logic in `RandomFactionGenerator`.
+4. **Dynamic Faction Handling**: In `RandomFactionGenerator.cs`, use utility methods for faction selection like `drawRandomFactionDef` and `drawRandomXenotypeDef` to maintain consistency in faction assignment logic.
 
-3. **XML Handling**:
-   - Leverage Copilot to auto-generate valid XML snippets for configuration, ensuring they align with expected RimWorld mod standards.
+5. **Debugging Harmony Patches**: If encountering issues, start by checking that each class extending `ModBase` properly initializes its `HarmonyInstance`.
 
-4. **Harmony Method Detection**:
-   - When identifying methods for Harmony patching, use Copilot to assist in locating accurate method signatures or to create postfix/prefix patches.
-
-With these guidelines, you can enhance the functionality and maintainability of your RimWorld mod, ensuring efficient development with GitHub Copilot.
+By following these instructions and using the provided guidelines, you can effectively contribute to and extend the functionality of the Random Factions mod, ensuring a stable and enjoyable experience for all players.
