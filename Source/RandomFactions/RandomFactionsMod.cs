@@ -27,6 +27,7 @@ The licensor cannot revoke these freedoms as long as you follow the license term
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HugsLib;
 using HugsLib.Settings;
@@ -220,6 +221,8 @@ Since A17 it no longer matters where you initialize your settings handles, since
     private void createXenoFactions()
     {
         var newDefs = new List<FactionDef>();
+        var violenceCapableXenotypes = GetViolenceCapableXenotypes();
+
         foreach (var def in DefDatabase<FactionDef>.AllDefs)
         {
             if (!IsXenotypePatchable(def))
@@ -227,7 +230,7 @@ Since A17 it no longer matters where you initialize your settings handles, since
                 continue;
             }
 
-            foreach (var xenotypeDef in DefDatabase<XenotypeDef>.AllDefs)
+            foreach (var xenotypeDef in violenceCapableXenotypes)
             {
                 var defCopy = cloneDef(def);
                 defCopy.defName = XenoFactionDefName(xenotypeDef, defCopy);
@@ -265,6 +268,26 @@ Since A17 it no longer matters where you initialize your settings handles, since
             patchedXenotypeFactions.Add(def.defName, def);
             DefDatabase<FactionDef>.Add(def);
         }
+    }
+
+    private List<XenotypeDef> GetViolenceCapableXenotypes()
+    {
+        return DefDatabase<XenotypeDef>.AllDefs.Where(x =>
+        {
+            if (x.genes != null)
+            {
+                var combinedDisabled = WorkTags.None;
+                foreach (var gene in x.genes)
+                {
+                    combinedDisabled |= gene.disabledWorkTags;
+                }
+
+                // Keep only xenotypes that do NOT disable violent work, otherwise their generation will throw an exception since you can't have faction leaders incapable of violence!
+                return (combinedDisabled & WorkTags.Violent) == 0;
+            }
+
+            return true;
+        }).ToList();
     }
 
     private static FactionDef cloneDef(FactionDef def)
