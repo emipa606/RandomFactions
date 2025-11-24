@@ -7,4 +7,8 @@
   <RaFa.xenotypePercentTT>Si la DLC Biotech est détectée, les factions aléatoires remplaceront les xénotypes par des baseliners dans ce pourcentage de temps (15% par défaut).</RaFa.xenotypePercentTT>
   <RaFa.reorganiseFactions>Réorganiser les factions</RaFa.reorganiseFactions>
   <RaFa.reorganiseFactionsTT>Supprime toutes les factions non aléatoires de la liste des factions de départ dans l'écran Nouveau Monde lors de la création d'une nouvelle colonie.</RaFa.reorganiseFactionsTT>
+  <RaFa.ModName>Factions aléatoires (suite)</RaFa.ModName>
+  <RaFa.verboseLogging>Journalisation verbeuse</RaFa.verboseLogging>
+  <RaFa.verboseLoggingTT>Active la journalisation de la création de factions et d'autres processus.</RaFa.verboseLoggingTT>
+  <RaFa.currentModVersion>Version installée du mod : {0}</RaFa.currentModVersion>
 </LanguageData>

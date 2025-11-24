@@ -1,14 +1,14 @@
 # [Random Factions (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3402848147)
 
-![Image](https://i.postimg.cc/1X4HT06h/Info.png)
+![Image](https://img.litet.net/logos/Info.png)
 
 Update of Dr. Plantabytes mod https://steamcommunity.com/sharedfiles/filedetails/?id=2896649114
 
 - Added translation support
 
-![Image](https://i.postimg.cc/8csH3dWV/Notice.png)
+![Image](https://img.litet.net/logos/Notice.png)
 	
-![Image](https://i.postimg.cc/hvhrw8xB/Original-Description.png)
+![Image](https://img.litet.net/logos/OriginalDescription.png)
 
 # Random Factions Rimworld Mod
 
@@ -98,7 +98,7 @@ Random Factions Rimworld Mod is licensed under the Attribution 4.0 International
 * You may include this mod in any of your mod packs (you do not need to ask for permission)
 * You may use or remix any content from this mod **so long as you credit Dr. Plantabyte as the original author and provide a link to this page or [url=https://github.com/DrPlantabyte/Ran
 
-![Image](https://i.postimg.cc/x8qR7GH9/Reporting-Issues.png)
+![Image](https://img.litet.net/logos/ReportingIssues.png)
 
 
 

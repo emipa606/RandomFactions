@@ -5,11 +5,12 @@
   "SocialImageSet": true,
   "SearchTags": " unique",
   "PreviewVersion": "1.6",
-  "LastXmlCleaning": "2025-10-28T21:47:51.8225669+01:00",
+  "LastXmlCleaning": "2025-11-24T20:34:47.9320811+01:00",
   "Patches": false,
   "Defs": true,
   "Assemblies": true,
-  "LinesOfCode": 50771,
-  "LinesOfXML": 11710,
-  "CodeBaseSize": 75
+  "LinesOfCode": 48435,
+  "LinesOfXML": 12298,
+  "CodeBaseSize": 75,
+  "RimWorldBaseId": 23038
 }

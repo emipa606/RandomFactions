@@ -7,4 +7,8 @@
   <RaFa.xenotypePercentTT>Wenn Biotech-DLC entdeckt wird, ersetzen zufällige Fraktionen in diesem Prozentsatz der Zeit (Standardwert 15%) Basler durch Xenotypen.</RaFa.xenotypePercentTT>
   <RaFa.reorganiseFactions>Fraktionen reorganisieren</RaFa.reorganiseFactions>
   <RaFa.reorganiseFactionsTT>Entfernt alle nicht zufälligen Fraktionen aus der Startfraktionsliste im Bildschirm "Neue Welt" während der Erstellung einer neuen Kolonie.</RaFa.reorganiseFactionsTT>
+  <RaFa.ModName>Zufällige Fraktionen (Fortsetzung)</RaFa.ModName>
+  <RaFa.verboseLogging>Ausführliche Protokollierung</RaFa.verboseLogging>
+  <RaFa.verboseLoggingTT>Ermöglicht die ausführliche Protokollierung der Fraktionserstellung und anderer Prozesse.</RaFa.verboseLoggingTT>
+  <RaFa.currentModVersion>Installierte Mod-Version: {0}</RaFa.currentModVersion>
 </LanguageData>

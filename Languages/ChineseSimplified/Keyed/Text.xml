@@ -7,4 +7,8 @@
   <RaFa.xenotypePercentTT>如果检测到生物技术 DLC，那么随机派系将在一定比例的时间内用基线人取代异种人（默认为 15%）</RaFa.xenotypePercentTT>
   <RaFa.reorganiseFactions>重组派别</RaFa.reorganiseFactions>
   <RaFa.reorganiseFactionsTT>在创建新殖民地时，从 "新世界 "界面的初始派系列表中移除所有非随机派系。</RaFa.reorganiseFactionsTT>
+  <RaFa.ModName>随机派系（续）</RaFa.ModName>
+  <RaFa.verboseLogging>冗长日志</RaFa.verboseLogging>
+  <RaFa.verboseLoggingTT>启用派系创建和其他进程的冗长日志。</RaFa.verboseLoggingTT>
+  <RaFa.currentModVersion>已安装 MOD 版本：{0}</RaFa.currentModVersion>
 </LanguageData>
