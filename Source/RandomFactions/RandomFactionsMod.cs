@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -69,6 +69,9 @@ public class RandomFactionsMod : Mod
         "HuntersCovenant", // Hunterphage
         "OutlanderPapou"
     ];
+
+    // don't disable these factions by default, as they are used in various DLC quests and scenarios, disabling breaks functionality
+    private static readonly HashSet<string> NotZeroedFactionDefs = new(StringComparer.OrdinalIgnoreCase) { "Empire", "Insect", "TradersGuild" };
 
     public static RandomFactionsSettings SettingsInstance;
 
@@ -238,6 +241,10 @@ public class RandomFactionsMod : Mod
             createXenoFactions();
         }
 
+        // Apply faction count settings
+        // The XML defines them as 4 / 2 / 2 / 1 (Any / Civil / Rough / Pirate), this allows user changable Faction counts in settings.
+        applyFactionCountSettings();
+
         Logger.Trace("DefsLoaded complete");
     }
 
@@ -313,10 +320,7 @@ public class RandomFactionsMod : Mod
     {
         foreach (var def in DefDatabase<FactionDef>.AllDefs)
         {
-            if (def.hidden ||
-                def.isPlayer ||
-                RandomCategoryName.EqualsIgnoreCase(def.categoryTag) ||
-                "Empire".EqualsIgnoreCase(def.defName))
+            if (def.hidden || def.isPlayer || RandomCategoryName.EqualsIgnoreCase(def.categoryTag) || NotZeroedFactionDefs.Contains(def.defName))
             {
                 continue;
             }
@@ -329,6 +333,55 @@ public class RandomFactionsMod : Mod
         {
             def.startingCountAtWorldCreation = randCountRecord[def];
         }
+    }
+
+    /// <summary>
+    /// Apply faction count settings to override XML values
+    /// </summary>
+    private void applyFactionCountSettings()
+    {
+        Logger.Trace("Applying faction count settings...");
+
+        // Get the faction defs by their defNames
+        var randomFactionDef = DefDatabase<FactionDef>.GetNamedSilentFail("RF_RandomFaction");
+        var randomTradeFactionDef = DefDatabase<FactionDef>.GetNamedSilentFail("RF_RandomTradeFaction");
+        var randomRoughFactionDef = DefDatabase<FactionDef>.GetNamedSilentFail("RF_RandomRoughFaction");
+        var randomPirateFactionDef = DefDatabase<FactionDef>.GetNamedSilentFail("RF_RandomPirateFaction");        
+
+        // Apply settings if the defs exist
+        if (randomFactionDef != null)
+        {
+            randomFactionDef.startingCountAtWorldCreation = SettingsInstance.randomFactionCount;
+            Logger.Trace($"Set RF_RandomFaction count to: {SettingsInstance.randomFactionCount}");
+        } else {
+            Logger.Warning("RF_RandomFaction def not found. Cannot apply randomFactionCount setting.");
+        }
+
+        if (randomRoughFactionDef != null)
+        {
+            randomRoughFactionDef.startingCountAtWorldCreation = SettingsInstance.randomRoughFactionCount;
+            Logger.Trace($"Set RF_RandomRoughFaction count to: {SettingsInstance.randomRoughFactionCount}");
+        } else {        
+            Logger.Warning("RF_RandomRoughFaction def not found. Cannot apply randomRoughFactionCount setting.");
+        }
+
+        if (randomPirateFactionDef != null)
+        {
+            randomPirateFactionDef.startingCountAtWorldCreation = SettingsInstance.randomPirateFactionCount;
+            Logger.Trace($"Set RF_RandomPirateFaction count to: {SettingsInstance.randomPirateFactionCount}");
+        } else {
+            Logger.Warning("RF_RandomPirateFaction def not found. Cannot apply randomPirateFactionCount setting.");
+        }
+
+        if (randomTradeFactionDef != null)
+        {
+            randomTradeFactionDef.startingCountAtWorldCreation = SettingsInstance.randomTradeFactionCount; 
+            Logger.Trace($"Set RF_RandomTradeFaction count to: {SettingsInstance.randomTradeFactionCount}");
+        } else {
+            Logger.Warning("RF_RandomTradeFaction def not found. Cannot apply randomTradeFactionCount setting.");
+        }
+
+        Logger.Trace("Faction count settings applied.");
     }
 
     public override void DoSettingsWindowContents(Rect inRect)
@@ -348,6 +401,22 @@ public class RandomFactionsMod : Mod
 
         listing.Label("RaFa.xenotypePercent".Translate() + ": " + SettingsInstance.xenoPercent);
         SettingsInstance.xenoPercent = (int)listing.Slider(SettingsInstance.xenoPercent, 0f, 100f);
+
+        listing.Gap();
+
+        listing.Label("RaFa.randomFactionCount".Translate() + ": " + SettingsInstance.randomFactionCount);
+        SettingsInstance.randomFactionCount = (int)listing.Slider(SettingsInstance.randomFactionCount, 0f, 10f);
+
+        listing.Label("RaFa.randomTradeFactionCount".Translate() + ": " + SettingsInstance.randomTradeFactionCount);
+        SettingsInstance.randomTradeFactionCount = (int)listing.Slider(SettingsInstance.randomTradeFactionCount, 0f, 10f);
+
+        listing.Label("RaFa.randomRoughFactionCount".Translate() + ": " + SettingsInstance.randomRoughFactionCount);
+        SettingsInstance.randomRoughFactionCount = (int)listing.Slider(SettingsInstance.randomRoughFactionCount, 0f, 10f);
+
+        listing.Label("RaFa.randomPirateFactionCount".Translate() + ": " + SettingsInstance.randomPirateFactionCount);
+        SettingsInstance.randomPirateFactionCount = (int)listing.Slider(SettingsInstance.randomPirateFactionCount, 0f, 10f);
+
+        listing.Gap();
 
         listing.CheckboxLabeled(
             "RaFa.verboseLogging".Translate(),
