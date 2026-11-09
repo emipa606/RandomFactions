@@ -14,7 +14,7 @@
   <RaFa.randomFactionCount>随机派系数量</RaFa.randomFactionCount>
   <RaFa.randomFactionCountTT>世界生成时生成的随机派系数量（默认：4）。</RaFa.randomFactionCountTT>
   <RaFa.randomTradeFactionCount>随机文明派系数量</RaFa.randomTradeFactionCount>
-  <RaFa.randomTradeFactionCountTT>世界生成时生成的随机文明派系数量（默认：2）。</RaFa.randomTradeFactionCountTT>  
+  <RaFa.randomTradeFactionCountTT>世界生成时生成的随机文明派系数量（默认：2）。</RaFa.randomTradeFactionCountTT>
   <RaFa.randomRoughFactionCount>随机粗犷派系数量</RaFa.randomRoughFactionCount>
   <RaFa.randomRoughFactionCountTT>世界生成时生成的随机粗犷派系数量（默认：2）。</RaFa.randomRoughFactionCountTT>
   <RaFa.randomPirateFactionCount>随机敌对派系数量</RaFa.randomPirateFactionCount>

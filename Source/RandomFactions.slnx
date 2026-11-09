@@ -6,4 +6,16 @@
     <BuildType Name="Release" />
   </Configurations>
   <Project Path="RandomFactions/RandomFactions.csproj" />
+  <Folder Name="/XML/About/">
+    <File Path="../About/about.xml" />
+  </Folder>
+  <Folder Name="/XML/Languages/English/Keyed/">
+    <File Path="../Languages/English/Keyed/Text.xml" />
+  </Folder>
+  <Folder Name="/XML/1.7/Defs/">
+    <File Path="../1.7/Defs/UpdateInfo.xml" />
+  </Folder>
+  <Folder Name="/XML/Defs/FactionDefs/">
+    <File Path="../Defs/FactionDefs/RF_RandomFaction.xml" />
+  </Folder>
 </Solution>

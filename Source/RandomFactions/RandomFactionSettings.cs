@@ -5,6 +5,10 @@ namespace RandomFactions;
 public class RandomFactionsSettings : ModSettings
 {
     public bool allowDuplicates;
+    public int randomFactionCount = 4;
+    public int randomPirateFactionCount = 1;
+    public int randomRoughFactionCount = 2;
+    public int randomTradeFactionCount = 2;
     public bool removeOtherFactions = true;
     public bool verboseLogging;
     public int xenoPercent = 15;

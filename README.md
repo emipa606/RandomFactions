@@ -113,4 +113,4 @@ Random Factions Rimworld Mod is licensed under the Attribution 4.0 International
 
  
 
-[![Image](https://img.shields.io/github/v/release/emipa606/RandomFactions?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/3402848147) | tags: unique
+[![Image](https://img.shields.io/github/v/release/emipa606/RandomFactions?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/3402848147) | unique

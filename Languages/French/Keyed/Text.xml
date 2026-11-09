@@ -14,7 +14,7 @@
   <RaFa.randomFactionCount>Nombre de factions aléatoires</RaFa.randomFactionCount>
   <RaFa.randomFactionCountTT>Nombre de factions aléatoires à générer lors de la génération du monde (par défaut : 4).</RaFa.randomFactionCountTT>
   <RaFa.randomTradeFactionCount>Nombre de factions civiles aléatoires</RaFa.randomTradeFactionCount>
-  <RaFa.randomTradeFactionCountTT>Nombre de factions civiles aléatoires à générer lors de la génération du monde (par défaut : 2).</RaFa.randomTradeFactionCountTT>  
+  <RaFa.randomTradeFactionCountTT>Nombre de factions civiles aléatoires à générer lors de la génération du monde (par défaut : 2).</RaFa.randomTradeFactionCountTT>
   <RaFa.randomRoughFactionCount>Nombre de factions rudes aléatoires</RaFa.randomRoughFactionCount>
   <RaFa.randomRoughFactionCountTT>Nombre de factions rudes aléatoires à générer lors de la génération du monde (par défaut : 2).</RaFa.randomRoughFactionCountTT>
   <RaFa.randomPirateFactionCount>Nombre de factions hostiles aléatoires</RaFa.randomPirateFactionCount>

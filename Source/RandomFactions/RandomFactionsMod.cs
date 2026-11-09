@@ -71,7 +71,8 @@ public class RandomFactionsMod : Mod
     ];
 
     // don't disable these factions by default, as they are used in various DLC quests and scenarios, disabling breaks functionality
-    private static readonly HashSet<string> NotZeroedFactionDefs = new(StringComparer.OrdinalIgnoreCase) { "Empire", "Insect", "TradersGuild" };
+    private static readonly HashSet<string> NotZeroedFactionDefs = new(StringComparer.OrdinalIgnoreCase)
+        { "Empire", "Insect", "TradersGuild" };
 
     public static RandomFactionsSettings SettingsInstance;
 
@@ -92,16 +93,6 @@ public class RandomFactionsMod : Mod
         // Run DefsLoaded logic asynchronously so all defs are available
         LongEventHandler.QueueLongEvent(DefsLoaded, "RandomFactions:LoadingDefs", false, null);
     }
-
-    //public static string XenoFactionDefName(XenotypeDef xdef, FactionDef fdef)
-    //{
-    // Unique name by concatenating the xenotype name and the faction name
-    //    if (xdef == null) throw new ArgumentNullException(nameof(xdef));
-    //    if (fdef == null) throw new ArgumentNullException(nameof(fdef));
-
-    //    return $"{xdef.defName}_{fdef.defName}";
-    //}
-
 
     private static string BaseFactionKey(FactionDef def)
     {
@@ -154,14 +145,12 @@ public class RandomFactionsMod : Mod
                 }
 
                 // PAIR exclusion (e.g., OutlanderRough → no Pigskin)
-                if (BlockedPairs.TryGetValue(def.defName, out var blockedXenos))
+                if (BlockedPairs.TryGetValue(def.defName, out var blockedXenos) &&
+                    blockedXenos.Contains(xenotypeDef.defName))
                 {
-                    if (blockedXenos.Contains(xenotypeDef.defName))
-                    {
-                        Logger.Trace(
-                            $" - Blocked pair: faction '{def.defName}' cannot use xenotype '{xenotypeDef.defName}'");
-                        continue;
-                    }
+                    Logger.Trace(
+                        $" - Blocked pair: faction '{def.defName}' cannot use xenotype '{xenotypeDef.defName}'");
+                    continue;
                 }
 
                 Logger.Trace($" - Applying xenotype: {xenotypeDef.defName}");
@@ -198,7 +187,7 @@ public class RandomFactionsMod : Mod
                 foreach (var field in typeof(XenotypeSet).GetFields(
                              BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public))
                 {
-                    if (!field.FieldType.IsAssignableFrom(xenotypeChances.GetType()))
+                    if (!field.FieldType.IsInstanceOfType(xenotypeChances))
                     {
                         continue;
                     }
@@ -320,7 +309,8 @@ public class RandomFactionsMod : Mod
     {
         foreach (var def in DefDatabase<FactionDef>.AllDefs)
         {
-            if (def.hidden || def.isPlayer || RandomCategoryName.EqualsIgnoreCase(def.categoryTag) || NotZeroedFactionDefs.Contains(def.defName))
+            if (def.hidden || def.isPlayer || RandomCategoryName.EqualsIgnoreCase(def.categoryTag) ||
+                NotZeroedFactionDefs.Contains(def.defName))
             {
                 continue;
             }
@@ -336,7 +326,7 @@ public class RandomFactionsMod : Mod
     }
 
     /// <summary>
-    /// Apply faction count settings to override XML values
+    ///     Apply faction count settings to override XML values
     /// </summary>
     private void applyFactionCountSettings()
     {
@@ -346,14 +336,16 @@ public class RandomFactionsMod : Mod
         var randomFactionDef = DefDatabase<FactionDef>.GetNamedSilentFail("RF_RandomFaction");
         var randomTradeFactionDef = DefDatabase<FactionDef>.GetNamedSilentFail("RF_RandomTradeFaction");
         var randomRoughFactionDef = DefDatabase<FactionDef>.GetNamedSilentFail("RF_RandomRoughFaction");
-        var randomPirateFactionDef = DefDatabase<FactionDef>.GetNamedSilentFail("RF_RandomPirateFaction");        
+        var randomPirateFactionDef = DefDatabase<FactionDef>.GetNamedSilentFail("RF_RandomPirateFaction");
 
         // Apply settings if the defs exist
         if (randomFactionDef != null)
         {
             randomFactionDef.startingCountAtWorldCreation = SettingsInstance.randomFactionCount;
             Logger.Trace($"Set RF_RandomFaction count to: {SettingsInstance.randomFactionCount}");
-        } else {
+        }
+        else
+        {
             Logger.Warning("RF_RandomFaction def not found. Cannot apply randomFactionCount setting.");
         }
 
@@ -361,7 +353,9 @@ public class RandomFactionsMod : Mod
         {
             randomRoughFactionDef.startingCountAtWorldCreation = SettingsInstance.randomRoughFactionCount;
             Logger.Trace($"Set RF_RandomRoughFaction count to: {SettingsInstance.randomRoughFactionCount}");
-        } else {        
+        }
+        else
+        {
             Logger.Warning("RF_RandomRoughFaction def not found. Cannot apply randomRoughFactionCount setting.");
         }
 
@@ -369,15 +363,19 @@ public class RandomFactionsMod : Mod
         {
             randomPirateFactionDef.startingCountAtWorldCreation = SettingsInstance.randomPirateFactionCount;
             Logger.Trace($"Set RF_RandomPirateFaction count to: {SettingsInstance.randomPirateFactionCount}");
-        } else {
+        }
+        else
+        {
             Logger.Warning("RF_RandomPirateFaction def not found. Cannot apply randomPirateFactionCount setting.");
         }
 
         if (randomTradeFactionDef != null)
         {
-            randomTradeFactionDef.startingCountAtWorldCreation = SettingsInstance.randomTradeFactionCount; 
+            randomTradeFactionDef.startingCountAtWorldCreation = SettingsInstance.randomTradeFactionCount;
             Logger.Trace($"Set RF_RandomTradeFaction count to: {SettingsInstance.randomTradeFactionCount}");
-        } else {
+        }
+        else
+        {
             Logger.Warning("RF_RandomTradeFaction def not found. Cannot apply randomTradeFactionCount setting.");
         }
 
@@ -408,13 +406,16 @@ public class RandomFactionsMod : Mod
         SettingsInstance.randomFactionCount = (int)listing.Slider(SettingsInstance.randomFactionCount, 0f, 10f);
 
         listing.Label("RaFa.randomTradeFactionCount".Translate() + ": " + SettingsInstance.randomTradeFactionCount);
-        SettingsInstance.randomTradeFactionCount = (int)listing.Slider(SettingsInstance.randomTradeFactionCount, 0f, 10f);
+        SettingsInstance.randomTradeFactionCount =
+            (int)listing.Slider(SettingsInstance.randomTradeFactionCount, 0f, 10f);
 
         listing.Label("RaFa.randomRoughFactionCount".Translate() + ": " + SettingsInstance.randomRoughFactionCount);
-        SettingsInstance.randomRoughFactionCount = (int)listing.Slider(SettingsInstance.randomRoughFactionCount, 0f, 10f);
+        SettingsInstance.randomRoughFactionCount =
+            (int)listing.Slider(SettingsInstance.randomRoughFactionCount, 0f, 10f);
 
         listing.Label("RaFa.randomPirateFactionCount".Translate() + ": " + SettingsInstance.randomPirateFactionCount);
-        SettingsInstance.randomPirateFactionCount = (int)listing.Slider(SettingsInstance.randomPirateFactionCount, 0f, 10f);
+        SettingsInstance.randomPirateFactionCount =
+            (int)listing.Slider(SettingsInstance.randomPirateFactionCount, 0f, 10f);
 
         listing.Gap();
 
