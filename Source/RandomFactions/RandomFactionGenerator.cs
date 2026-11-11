@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using RandomFactions.filters;
 using RimWorld;
+using RimWorld.Planet;
 using Verse;
 
 namespace RandomFactions;
@@ -21,6 +23,10 @@ public class RandomFactionGenerator
         "OutlanderPapou",
         "HuntersCovenant"
     ];
+
+    // Settlement caches its material on first draw and SetFaction does not clear it
+    private static readonly FieldInfo settlementCachedMatField =
+        typeof(Settlement).GetField("cachedMat", BindingFlags.NonPublic | BindingFlags.Instance);
 
     private readonly List<FactionDef> definedFactionDefs = [];
     private readonly bool hasBiotech;
@@ -220,13 +226,22 @@ public class RandomFactionGenerator
                 continue;
             }
 
-            xenoDef.maxConfigurableAtWorldCreation = Math.Max(1, xenoDef.maxConfigurableAtWorldCreation);
-            xenoDef.hidden = false;
+            ActivateXenotypeFactionDef(xenoDef);
             modLogger.Trace($"Selected xenotype faction: {xenoDef.defName} replacing {baseDef.defName}");
             return xenoDef;
         }
 
         return baseDef;
+    }
+
+    /// <summary>
+    ///     Generated xenotype faction defs start hidden; un-hide a def once a faction in the world uses it.
+    ///     This is def-level state, so it must be re-applied after loading a save.
+    /// </summary>
+    public static void ActivateXenotypeFactionDef(FactionDef xenoDef)
+    {
+        xenoDef.maxConfigurableAtWorldCreation = Math.Max(1, xenoDef.maxConfigurableAtWorldCreation);
+        xenoDef.hidden = false;
     }
 
     private static FactionDefFilter duplicateFilter(IEnumerable<Faction> existingFactions, bool allowDuplicates)
@@ -283,7 +298,7 @@ public class RandomFactionGenerator
 
             if (failedDefs.Count > 0)
             {
-                filterDefs.RemoveAll(fd => failedDefs.Contains(fd));
+                filterDefs.RemoveAll(failedDefs.Contains);
                 if (filterDefs.Count == 0)
                 {
                     modLogger.Error("All candidate defs previously failed — aborting generation.");
@@ -392,15 +407,12 @@ public class RandomFactionGenerator
         var newSpecialFactionNames = new List<string> { "Zal's Irregulars", "Mlie's Marauders", "Wolf's Dragoons" };
 
         // Only apply to Pirate factions
-        if (newFaction.def.defName.Contains("Pirate"))
+        if (newFaction.def.defName.Contains("Pirate") && Rand.Value < 0.01f)
         {
             // 1% chance roll
-            if (Rand.Value < 0.01f)
-            {
-                var chosenName = newSpecialFactionNames.RandomElement();
-                modLogger.Trace($"Renaming faction {newFaction.Name} to {chosenName} - 1% chance");
-                newFaction.Name = chosenName;
-            }
+            var chosenName = newSpecialFactionNames.RandomElement();
+            modLogger.Trace($"Renaming faction {newFaction.Name} to {chosenName} - 1% chance");
+            newFaction.Name = chosenName;
         }
 
 
@@ -435,6 +447,7 @@ public class RandomFactionGenerator
             "Onn"
         };
         var reassignedCount = 0;
+        var dirtyLayers = new HashSet<PlanetLayer>();
         foreach (var stl in Find.WorldObjects.Settlements)
         {
             if (stl.Faction != oldFaction)
@@ -443,6 +456,12 @@ public class RandomFactionGenerator
             }
 
             stl.SetFaction(newFaction);
+            settlementCachedMatField?.SetValue(stl, null);
+            if (stl.Tile.Valid)
+            {
+                dirtyLayers.Add(stl.Tile.Layer);
+            }
+
             reassignedCount++;
 
             if (Rand.Value < 0.01f)
@@ -467,9 +486,17 @@ public class RandomFactionGenerator
 
         modLogger.Trace($"Total settlements reassigned from {oldFaction.Name} to {newFaction.Name}: {reassignedCount}");
 
-        // Mark old faction defeated & hidden
+        // Static settlements are baked into the world mesh, so rebuild it with the new faction's material
+        foreach (var layer in dirtyLayers)
+        {
+            Find.World.renderer?.SetDirty<WorldDrawLayer_WorldObjects>(layer);
+        }
+
+        // Mark old faction defeated & hidden.
+        // Hide the faction instance (saved with the game) rather than the shared def, which is not saved
+        // and would also hide placeholder factions in any other world created this session.
         oldFaction.defeated = true;
-        oldFaction.def.hidden = true;
+        oldFaction.hidden = true;
         modLogger.Trace($"Old faction {oldFaction.Name} marked defeated and hidden.");
 
         // Add new faction if not already present

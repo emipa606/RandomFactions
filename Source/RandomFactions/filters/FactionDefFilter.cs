@@ -28,6 +28,8 @@ using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 
+namespace RandomFactions.filters;
+
 public abstract class FactionDefFilter
 {
     protected abstract bool Matches(FactionDef f);

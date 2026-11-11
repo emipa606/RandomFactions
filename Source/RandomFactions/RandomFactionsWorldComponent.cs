@@ -15,6 +15,60 @@ public class RandomFactionsWorldComponent : WorldComponent
         initialized = false;
     }
 
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        Scribe_Values.Look(ref initialized, "initialized");
+    }
+
+    public override void FinalizeInit(bool fromLoad)
+    {
+        base.FinalizeInit(fromLoad);
+
+        if (fromLoad)
+        {
+            restoreFactionVisibility();
+        }
+    }
+
+    /// <summary>
+    ///     Hidden state used to be applied to shared defs, which are not saved. Re-apply it after loading so
+    ///     replaced placeholders stay hidden and generated xenotype factions stay visible.
+    /// </summary>
+    private static void restoreFactionVisibility()
+    {
+        var logger = LoadedModManager.GetMod<RandomFactionsMod>()?.Logger;
+
+        foreach (var faction in Find.FactionManager.AllFactionsListForReading)
+        {
+            if (faction.def == null)
+            {
+                continue;
+            }
+
+            if (faction.def.categoryTag.EqualsIgnoreCase(RandomFactionsMod.RandomCategoryName))
+            {
+                // Saves from older versions don't have the per-faction hidden flag on replaced placeholders
+                if (faction.defeated && faction.hidden == null)
+                {
+                    faction.hidden = true;
+                    logger?.Trace($"Re-hid replaced placeholder faction {faction.Name} ({faction.def.defName}).");
+                }
+
+                continue;
+            }
+
+            if (!faction.def.categoryTag.EqualsIgnoreCase(RandomFactionsMod.XenopatchCategoryName))
+            {
+                continue;
+            }
+
+            RandomFactionGenerator.ActivateXenotypeFactionDef(faction.def);
+            faction.hidden ??= false;
+            logger?.Trace($"Restored xenotype faction def {faction.def.defName} for {faction.Name}.");
+        }
+    }
+
     public override void WorldComponentTick()
     {
         if (initialized)

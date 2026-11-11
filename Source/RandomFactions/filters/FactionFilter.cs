@@ -27,6 +27,8 @@ The licensor cannot revoke these freedoms as long as you follow the license term
 using System.Collections.Generic;
 using RimWorld;
 
+namespace RandomFactions.filters;
+
 public abstract class FactionFilter
 {
     protected abstract bool Matches(Faction f);

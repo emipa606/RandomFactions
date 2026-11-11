@@ -15,9 +15,9 @@ public class TechLevelFactionDefFilter(TechLevel minTl, TechLevel maxTl) : Facti
     Archotech
     */
 
-    protected override bool Matches(FactionDef def)
+    protected override bool Matches(FactionDef f)
     {
-        var t = toInt(def.techLevel);
+        var t = toInt(f.techLevel);
         var low = toInt(minTl);
         var high = toInt(maxTl);
         return t >= low && t <= high;

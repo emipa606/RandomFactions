@@ -4,9 +4,8 @@ namespace RandomFactions.filters;
 
 public class OneOnlyFactionDefFilter(bool isOneOnly) : FactionDefFilter
 {
-    protected override bool Matches(FactionDef def)
+    protected override bool Matches(FactionDef f)
     {
-        //return def.maxCountAtGameStart == 1 == isOneOnly;
-        return def.maxConfigurableAtWorldCreation == 1 == isOneOnly;
+        return f.maxConfigurableAtWorldCreation == 1 == isOneOnly;
     }
 }

@@ -12,7 +12,7 @@ namespace RandomFactions;
 public class RandomFactionsMod : Mod
 {
     public const string RandomCategoryName = "Random";
-    private const string XenopatchCategoryName = "Xenopatch";
+    public const string XenopatchCategoryName = "Xenopatch";
 
     // exclude specific xenotypes from specific FactionDefs
     private static readonly Dictionary<string, HashSet<string>> BlockedPairs = new()
